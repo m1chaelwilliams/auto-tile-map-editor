@@ -1,0 +1,510 @@
+{
+    "SPRITESHEETS": {
+        "general": {
+            "PATH": "assets/tilemaps/platformerset.png",
+            "SIZE": [
+                16,
+                16
+            ]
+        }
+    },
+    "TILES": {
+        "grass": {
+            "ID": "grass",
+            "SOURCE": "general",
+            "VARIANTS": [
+                {
+                    "position": [
+                        1.0,
+                        1.0
+                    ],
+                    "variant": 0,
+                    "size": [
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "position": [
+                        2.0,
+                        1.0
+                    ],
+                    "variant": 1,
+                    "size": [
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "position": [
+                        3.0,
+                        1.0
+                    ],
+                    "variant": 2,
+                    "size": [
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "position": [
+                        1.0,
+                        2.0
+                    ],
+                    "variant": 3,
+                    "size": [
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "position": [
+                        2.0,
+                        2.0
+                    ],
+                    "variant": 4,
+                    "size": [
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "position": [
+                        3.0,
+                        2.0
+                    ],
+                    "variant": 5,
+                    "size": [
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "position": [
+                        1.0,
+                        3.0
+                    ],
+                    "variant": 6,
+                    "size": [
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "position": [
+                        2.0,
+                        3.0
+                    ],
+                    "variant": 7,
+                    "size": [
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "position": [
+                        3.0,
+                        3.0
+                    ],
+                    "variant": 8,
+                    "size": [
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "position": [
+                        5.0,
+                        2.0
+                    ],
+                    "variant": 9,
+                    "size": [
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "position": [
+                        4.0,
+                        3.0
+                    ],
+                    "variant": 10,
+                    "size": [
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "position": [
+                        5.0,
+                        3.0
+                    ],
+                    "variant": 11,
+                    "size": [
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "position": [
+                        3.0,
+                        4.0
+                    ],
+                    "variant": 12,
+                    "size": [
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "position": [
+                        2.0,
+                        4.0
+                    ],
+                    "variant": 13,
+                    "size": [
+                        1,
+                        1
+                    ]
+                }
+            ]
+        },
+        "dirt": {
+            "ID": "dirt",
+            "SOURCE": "general",
+            "VARIANTS": [
+                {
+                    "position": [
+                        4.0,
+                        4.0
+                    ],
+                    "variant": 0,
+                    "size": [
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "position": [
+                        5.0,
+                        4.0
+                    ],
+                    "variant": 1,
+                    "size": [
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "position": [
+                        6.0,
+                        4.0
+                    ],
+                    "variant": 2,
+                    "size": [
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "position": [
+                        4.0,
+                        5.0
+                    ],
+                    "variant": 3,
+                    "size": [
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "position": [
+                        5.0,
+                        5.0
+                    ],
+                    "variant": 4,
+                    "size": [
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "position": [
+                        6.0,
+                        5.0
+                    ],
+                    "variant": 5,
+                    "size": [
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "position": [
+                        4.0,
+                        6.0
+                    ],
+                    "variant": 6,
+                    "size": [
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "position": [
+                        5.0,
+                        6.0
+                    ],
+                    "variant": 7,
+                    "size": [
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "position": [
+                        6.0,
+                        6.0
+                    ],
+                    "variant": 8,
+                    "size": [
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "position": [
+                        5.0,
+                        4.0
+                    ],
+                    "variant": 9,
+                    "size": [
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "position": [
+                        3.0,
+                        5.0
+                    ],
+                    "variant": 10,
+                    "size": [
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "position": [
+                        2.0,
+                        5.0
+                    ],
+                    "variant": 11,
+                    "size": [
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "position": [
+                        3.0,
+                        4.0
+                    ],
+                    "variant": 12,
+                    "size": [
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "position": [
+                        2.0,
+                        4.0
+                    ],
+                    "variant": 13,
+                    "size": [
+                        1,
+                        1
+                    ]
+                }
+            ]
+        },
+        "water": {
+            "ID": "water",
+            "SOURCE": "general",
+            "VARIANTS": [
+                {
+                    "position": [
+                        8.0,
+                        0.0
+                    ],
+                    "variant": 0,
+                    "size": [
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "position": [
+                        9.0,
+                        0.0
+                    ],
+                    "variant": 1,
+                    "size": [
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "position": [
+                        10.0,
+                        0.0
+                    ],
+                    "variant": 2,
+                    "size": [
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "position": [
+                        8.0,
+                        1.0
+                    ],
+                    "variant": 3,
+                    "size": [
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "position": [
+                        9.0,
+                        1.0
+                    ],
+                    "variant": 4,
+                    "size": [
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "position": [
+                        10.0,
+                        1.0
+                    ],
+                    "variant": 5,
+                    "size": [
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "position": [
+                        8.0,
+                        1.0
+                    ],
+                    "variant": 6,
+                    "size": [
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "position": [
+                        9.0,
+                        1.0
+                    ],
+                    "variant": 7,
+                    "size": [
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "position": [
+                        10.0,
+                        1.0
+                    ],
+                    "variant": 8,
+                    "size": [
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "position": [
+                        7.0,
+                        0.0
+                    ],
+                    "variant": 9,
+                    "size": [
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "position": [
+                        9.0,
+                        1.0
+                    ],
+                    "variant": 10,
+                    "size": [
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "position": [
+                        9.0,
+                        1.0
+                    ],
+                    "variant": 11,
+                    "size": [
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "position": [
+                        9.0,
+                        1.0
+                    ],
+                    "variant": 12,
+                    "size": [
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "position": [
+                        9.0,
+                        1.0
+                    ],
+                    "variant": 13,
+                    "size": [
+                        1,
+                        1
+                    ]
+                }
+            ]
+        },
+        "coin": {
+            "ID": "coin",
+            "SOURCE": "general",
+            "VARIANTS": [
+                {
+                    "position": [
+                        0.0,
+                        0.0
+                    ],
+                    "variant": 0,
+                    "size": [
+                        1,
+                        1
+                    ]
+                }
+            ]
+        }
+    }
+}

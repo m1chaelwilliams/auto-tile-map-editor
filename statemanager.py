@@ -1,0 +1,2 @@
+class StateManager:
+    state: str = ""

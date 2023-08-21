@@ -1,0 +1,6 @@
+{
+    "WIN_SIZE":[1280, 720],
+    "FPS":60,
+    "TILESIZE":50,
+    "TITLE":"SPHERE'S TILEMAP EDITOR V2"
+}
