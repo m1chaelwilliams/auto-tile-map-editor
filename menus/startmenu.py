@@ -43,6 +43,7 @@ class StartMenu(BaseScene):
         left_column = Container(children=[
             Label("Sphere's Tilemap Editor", fontsize=40, float=CENTER),
                 TextButton("Start", on_click=self.start, float=CENTER),
+                TextButton("Settings", on_click=lambda: self.go_to("settings"), float=CENTER),
                 TextButton("Quit", on_click=self.quit, float=CENTER)
         ],
         minimize=False,
@@ -89,6 +90,8 @@ class StartMenu(BaseScene):
         if self.active_tilemap and self.active_tileset:
             self.scene.init(self.active_tileset, self.active_tilemap)
             StateManager.state = "scene"
+    def go_to(self, loc: str):
+        StateManager.set_state(loc)
     def set_tileset(self, tileset):
         self.active_tileset = tileset
     def set_tilemap(self, tilemap):

@@ -15,8 +15,14 @@ class Scene(BaseScene):
         super().__init__(screen)
 
     def init(self, tileset_file, tilemap_file: str = None):
-        self.grid_surface = self.gen_grid((100, 100), spotted=True, clear=CLEAR_GRID, color_1=COLOR_1, color_2=COLOR_2, line_color=LINE_COLOR)
-        self.background_surface = pygame.transform.scale(pygame.image.load(BACKGROUND).convert_alpha(), (SCREENWIDTH, SCREENHEIGHT))
+        self.grid_surface = self.gen_grid((100, 100), 
+                                          spotted=True, 
+                                          clear=Globals.CLEAR_GRID, 
+                                          color_1=Globals.COLOR_1, 
+                                          color_2=Globals.COLOR_2, 
+                                          line_color=Globals.LINE_COLOR)
+        self.background_surface = pygame.transform.scale(pygame.image.load(Globals.BACKGROUND).convert_alpha(), 
+                                                         (Globals.SCREENWIDTH, Globals.SCREENHEIGHT))
 
         # loading data
         with open(tileset_file, 'r') as f:
@@ -50,9 +56,9 @@ class Scene(BaseScene):
         mouse_pos = pygame.mouse.get_pos()
         mouse = pygame.mouse.get_pressed()
 
-        position = (mouse_pos[0] - self.controller.position.x)//TILESIZE, (mouse_pos[1] - self.controller.position.y)//TILESIZE
+        position = ((mouse_pos[0] - self.controller.position.x)//Globals.TILESIZE, 
+        (mouse_pos[1] - self.controller.position.y)//Globals.TILESIZE)
         if mouse[0] and position not in self.layers[self.active_layer]:
-            print('clicked!')
             
             self.layers[self.active_layer][position] = Tile(
                 self.cursor.active_slot,
@@ -144,7 +150,7 @@ class Scene(BaseScene):
                                                                    self.screen.get_height()-100, 
                                                                    tile['variants'][0].get_width(), 
                                                                    tile['variants'][0].get_height()), 2)
-            x += TILESIZE
+            x += Globals.TILESIZE
     def draw_active_tile(self): # wip
         x = 0
         y = 0
@@ -153,10 +159,10 @@ class Scene(BaseScene):
             if x == 3:
                 x = 0
                 y += 1
-            pos = ((self.screen.get_width()-(TILESIZE*3)) + x*TILESIZE, y*TILESIZE)
+            pos = ((self.screen.get_width()-(Globals.TILESIZE*3)) + x*Globals.TILESIZE, y*Globals.TILESIZE)
             self.screen.blit(variant, pos)
             if index == self.cursor.active_variant_index:
-                pygame.draw.rect(self.screen, "white", pygame.Rect(pos[0], pos[1], TILESIZE, TILESIZE), 2)
+                pygame.draw.rect(self.screen, "white", pygame.Rect(pos[0], pos[1], Globals.TILESIZE, Globals.TILESIZE), 2)
             x += 1
 
     # loading assets
@@ -165,8 +171,8 @@ class Scene(BaseScene):
         
         for name, data in tile_data.items():
             tilemaps[name] = pygame.transform.scale(pygame.image.load(data['PATH']).convert_alpha(), 
-                                                    (TILESIZE * data['SIZE'][0], 
-                                                     TILESIZE * data['SIZE'][1]))
+                                                    (Globals.TILESIZE * data['SIZE'][0], 
+                                                     Globals.TILESIZE * data['SIZE'][1]))
         return tilemaps
     def load_tiles(self, item_data: dict) -> list[dict[str, any]]:
         tiles: list[dict[str, pygame.Surface]] = []
@@ -175,10 +181,10 @@ class Scene(BaseScene):
             variants: list[str, pygame.Surface] = []
             for variant in data['VARIANTS']:
                 variant_surf = self.tilemap_textures[data['SOURCE']].subsurface(pygame.Rect(
-                    variant['position'][0] * TILESIZE,
-                    variant['position'][1] * TILESIZE,
-                    variant['size'][0] * TILESIZE,
-                    variant['size'][1] * TILESIZE
+                    variant['position'][0] * Globals.TILESIZE,
+                    variant['position'][1] * Globals.TILESIZE,
+                    variant['size'][0] * Globals.TILESIZE,
+                    variant['size'][1] * Globals.TILESIZE
                 ))
                 variants.append(variant_surf)
             tiles.append({'name':name, 'variants':variants})
@@ -193,7 +199,10 @@ class Scene(BaseScene):
                 position = (item['position'][0], item['position'][1])
                 id = item['id']
                 variant = item['variant']
-                self.layers[0][position] = Tile(id, variant, position)
+                layer = item['layer']
+                while len(self.layers)-1 < item['layer']:
+                    self.layers.append({})
+                self.layers[layer][position] = Tile(id, variant, position)
         except:
             pass
     # utils
@@ -225,11 +234,6 @@ class Scene(BaseScene):
             bottomleft = True
         if self.layers[self.active_layer].get((pos[0]+1, pos[1]+1)):
             bottomright = True
-
-        print(f'bottomleft: {bottomleft}')
-        print(f'bottomright: {bottomright}')
-        print(f'topleft: {topleft}')
-        print(f'topright: {topright}')
             
         num = 0
 
@@ -267,22 +271,22 @@ class Scene(BaseScene):
                  color_1: str = "black", 
                  color_2: str = "#282828",
                  line_color: str = "white") -> pygame.Surface:
-        surface = pygame.Surface((TILESIZE * size[0], TILESIZE * size[1]))
+        surface = pygame.Surface((Globals.TILESIZE * size[0], Globals.TILESIZE * size[1]))
         
         if spotted:
             for x in range(size[0]):
                 for y in range(size[1]):
                     if (x % 2 != 0 and y % 2 == 0) or (x % 2 == 0 and y % 2 != 0):
-                        pygame.draw.rect(surface, color_2, pygame.Rect(x*TILESIZE, y*TILESIZE, TILESIZE, TILESIZE))
+                        pygame.draw.rect(surface, color_2, pygame.Rect(x*Globals.TILESIZE, y*Globals.TILESIZE, Globals.TILESIZE, Globals.TILESIZE))
         if clear:
             surface.set_colorkey((0,0,0,0))
         else:
             surface.fill(color_1)
 
         for x in range(size[0]):
-            pygame.draw.line(surface, line_color, (x*TILESIZE, 0), (x*TILESIZE, size[1] * TILESIZE))
+            pygame.draw.line(surface, line_color, (x*Globals.TILESIZE, 0), (x*Globals.TILESIZE, size[1] * Globals.TILESIZE))
         for y in range(size[1]):
-            pygame.draw.line(surface, line_color, (0, y*TILESIZE), (size[0]*TILESIZE, y*TILESIZE))
+            pygame.draw.line(surface, line_color, (0, y*Globals.TILESIZE), (size[0]*Globals.TILESIZE, y*Globals.TILESIZE))
         
         return surface
     def get_surrounding_positions(self, position: tuple) -> list[tuple[int, int]]:
@@ -300,11 +304,10 @@ class Scene(BaseScene):
         ]
     # exporting
     def export_as_image(self):
-        surf = pygame.Surface((TILESIZE * 100, TILESIZE * 100))
+        surf = pygame.Surface((Globals.TILESIZE * 100, Globals.TILESIZE * 100))
         surf.fill('lightblue')
         for layer in self.layers:
             for tile in layer.values():
-                print(f'drawing tile! at {tile.position.x * TILESIZE}, {tile.position.y * TILESIZE}')
                 surf.blit(self.tile_textures[tile.id]['variants'][tile.variant], (tile.position.x, tile.position.y))
         
         filepath = filedialog.asksaveasfilename(

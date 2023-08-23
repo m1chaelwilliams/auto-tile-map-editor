@@ -434,8 +434,8 @@
                 },
                 {
                     "position": [
-                        7.0,
-                        0.0
+                        9.0,
+                        1.0
                     ],
                     "variant": 9,
                     "size": [
@@ -497,6 +497,40 @@
                     "position": [
                         0.0,
                         0.0
+                    ],
+                    "variant": 0,
+                    "size": [
+                        1,
+                        1
+                    ]
+                }
+            ]
+        },
+        "brick": {
+            "ID": "brick",
+            "SOURCE": "general",
+            "VARIANTS": [
+                {
+                    "position": [
+                        0.0,
+                        1.0
+                    ],
+                    "variant": 0,
+                    "size": [
+                        1,
+                        1
+                    ]
+                }
+            ]
+        },
+        "cloud": {
+            "ID": "cloud",
+            "SOURCE": "general",
+            "VARIANTS": [
+                {
+                    "position": [
+                        9.0,
+                        3.0
                     ],
                     "variant": 0,
                     "size": [

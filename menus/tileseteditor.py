@@ -17,7 +17,7 @@ class TilesetEditor(BaseScene):
         # loading assets
         self.template_tileset = pygame.transform.scale(
             pygame.image.load('assets/sampletilemap.png').convert_alpha(),
-            (TILESIZE*3, TILESIZE*5)
+            (Globals.TILESIZE*3, Globals.TILESIZE*5)
         )
 
         self.spritesheets: list[SpriteSheet] = []
@@ -49,8 +49,8 @@ class TilesetEditor(BaseScene):
 
                 for name, sheet in spritesheets.items():
                     surf = pygame.transform.scale(pygame.image.load(sheet['PATH']).convert_alpha(),
-                                                  (sheet['SIZE'][0]*TILESIZE, 
-                                                   sheet['SIZE'][1]*TILESIZE))
+                                                  (sheet['SIZE'][0]*Globals.TILESIZE, 
+                                                   sheet['SIZE'][1]*Globals.TILESIZE))
                     self.spritesheets.append(SpriteSheet(name, sheet['PATH'], sheet['SIZE'], surf, tiles, self.template_tileset))
         self.active_tileset = tileset
 
@@ -135,27 +135,29 @@ class SpriteSheet:
         self.hovered_tile_rect: pygame.Rect = None
         self.selected_rect: pygame.Rect = None
 
-        initial_offset = (TILESIZE*2, TILESIZE*2)
+        initial_offset = (Globals.TILESIZE*2, Globals.TILESIZE*2)
         x_offset = 0
         y_offset = 0
         for name, data in tiles.items():
             if data['SOURCE'] == self.name:
                 variants: list[pygame.Surface] = []
                 for variant in data['VARIANTS']:
-                    variants.append(self.surf.subsurface(pygame.Rect(variant['position'][0] * TILESIZE,
-                                                                     variant['position'][1] * TILESIZE,
-                                                                     variant['size'][0]*TILESIZE,
-                                                                     variant['size'][1]*TILESIZE)))
+                    variants.append(self.surf.subsurface(pygame.Rect(variant['position'][0] * Globals.TILESIZE,
+                                                                     variant['position'][1] * Globals.TILESIZE,
+                                                                     variant['size'][0]*Globals.TILESIZE,
+                                                                     variant['size'][1]*Globals.TILESIZE)))
 
                 self.tiles.append(Tile(name, 
                                        data['VARIANTS'], 
                                        variants, 
-                                       (x_offset*TILESIZE + initial_offset[0], 
-                                        y_offset*TILESIZE + initial_offset[1])))
+                                       (x_offset*Globals.TILESIZE + initial_offset[0], 
+                                        y_offset*Globals.TILESIZE + initial_offset[1])))
                 x_offset += 1
                 if x_offset > 5:
                     x_offset = 0
                     y_offset += 1
+    def gen_grid(self, surface: pygame.Surface):
+        pass
     def update(self, mouse_pos: tuple[int, int]):
         clicked = EventHandler.clicked()
 
@@ -178,19 +180,33 @@ class SpriteSheet:
             pos = self.get_hovered_tile_pos((mouse_pos[0] - self.rect.x, mouse_pos[1] - self.rect.y))
             if clicked:
                 if self.opened_tile.selected_rect:
-                    self.opened_tile.set_tile(pos, self.surf.subsurface(pygame.Rect(pos[0], pos[1], TILESIZE, TILESIZE)))
-            self.hovered_tile_rect = pygame.Rect(pos[0] + self.rect.x, pos[1] + self.rect.y, TILESIZE, TILESIZE)
+                    self.opened_tile.set_tile(pos, self.surf.subsurface(pygame.Rect(pos[0], pos[1], Globals.TILESIZE, Globals.TILESIZE)))
+            self.hovered_tile_rect = pygame.Rect(pos[0] + self.rect.x, pos[1] + self.rect.y, Globals.TILESIZE, Globals.TILESIZE)
 
         
     def get_hovered_tile_pos(self, pos: tuple[int, int]) -> tuple[int, int]:
-        return ((pos[0] // TILESIZE) * TILESIZE, (pos[1] // TILESIZE) * TILESIZE)
+        return ((pos[0] // Globals.TILESIZE) * Globals.TILESIZE, (pos[1] // Globals.TILESIZE) * Globals.TILESIZE)
     def draw_tiles(self, surface: pygame.Surface):
-        for tile in self.tiles:
-            surface.blit(tile.image, tile.rect)
+        x_offset = 100
+        y_offset = 100
+
+        x = 0
+        y = 0
+
+        for index, tile in enumerate(self.tiles):
+            pos = (x * Globals.TILESIZE + x_offset, 
+                   y * Globals.TILESIZE + y_offset)
+            tile.rect.topleft = pos
+            surface.blit(tile.image, pos)
             if tile.hovered:
                 pygame.draw.rect(surface, "white", tile.rect, 2)
+
+            x += 1
+            if x >= 5:
+                x = 0
+                y += 1
         if self.opened_tile:
-            surface.blit(self.template_tile, (TILESIZE*2, TILESIZE*6))
+            surface.blit(self.template_tile, (Globals.TILESIZE*2, Globals.TILESIZE*6))
             self.opened_tile.draw_tile_set(surface)
 
 class Tile:
@@ -198,7 +214,7 @@ class Tile:
         if variants:
             self.image = variants[0]
         else:
-            self.image = pygame.Surface((TILESIZE, TILESIZE))
+            self.image = pygame.Surface((Globals.TILESIZE, Globals.TILESIZE))
         self.rect = self.image.get_rect(topleft = position)
         self.name = name
         self.hovered = False
@@ -237,10 +253,10 @@ class Tile:
         self.selected_rect: pygame.Rect = None
         self.selected_rect_id: int = None
     def set_tile(self, spritesheet_position: tuple[int, int], image: pygame.Surface):
-        # print(f'setting tile as {spritesheet_position}')
         self.variants[self.selected_rect_id].ID = self.selected_rect_id
         self.variants[self.selected_rect_id].image = image
-        self.variants[self.selected_rect_id].spritesheet_position = (spritesheet_position[0]/TILESIZE, spritesheet_position[1]/TILESIZE)
+        self.variants[self.selected_rect_id].spritesheet_position = (spritesheet_position[0]/Globals.TILESIZE, 
+                                                                     spritesheet_position[1]/Globals.TILESIZE)
         self.variants[self.selected_rect_id].empty = False
 
         if self.selected_rect_id == 0:
@@ -251,7 +267,10 @@ class Tile:
         x = 0
         y = 0
         for index in range (14):
-            rects.append(pygame.Rect(x * TILESIZE + (TILESIZE*2), y * TILESIZE + (TILESIZE*6), TILESIZE, TILESIZE))
+            rects.append(pygame.Rect(x * Globals.TILESIZE + (Globals.TILESIZE*2), 
+                                     y * Globals.TILESIZE + (Globals.TILESIZE*6), 
+                                     Globals.TILESIZE, 
+                                     Globals.TILESIZE))
             x += 1
             if x >= 3:
                 x = 0
@@ -271,7 +290,7 @@ class Variant:
                  variant_id: int, 
                  spritesheet_position: tuple[int, int], 
                  size: tuple[int, int] = (1,1),
-                 image: pygame.Surface = pygame.Surface((TILESIZE, TILESIZE)),
+                 image: pygame.Surface = pygame.Surface((Globals.TILESIZE, Globals.TILESIZE)),
                  empty: bool = True
                  ) -> None:
         self.ID = variant_id

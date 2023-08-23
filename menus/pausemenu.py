@@ -16,7 +16,8 @@ class PauseMenu(BaseScene):
                 Label("Paused", fontsize=40, float=CENTER),
                 TextButton("Export as JSON", on_click=scene.export_as_json, float=CENTER),
                 TextButton("Export as PNG", on_click=scene.export_as_image, float=CENTER),
-                TextButton("Back To Start", on_click=self.go_start, float=CENTER),
+                TextButton("Settings", on_click=lambda: self.go_to("settings"), float=CENTER),
+                TextButton("Back To Start", on_click=lambda: self.go_to("start"), float=CENTER),
                 TextButton("Quit", on_click=self.quit, float=CENTER)
             ],
             minimize=False,
@@ -27,10 +28,8 @@ class PauseMenu(BaseScene):
     def quit(self):
         pygame.quit()
         sys.exit()
-    def go_start(self):
-        StateManager.state = "start"
-    def start(self):
-        StateManager.state = "scene"
+    def go_to(self, loc: str):
+        StateManager.set_state(loc)
     def update(self):
         self.view.update(pygame.mouse.get_pos(), EventHandler.events)
         if EventHandler.keydown(pygame.K_ESCAPE):
